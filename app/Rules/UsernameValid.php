@@ -1,19 +1,64 @@
 <?php
-
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class UsernameValid implements Rule
-{
+class UsernameValid implements Rule {
+
+    private $badwords = ['cat', 'dog', 'horse'];
+
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct() {
         ;
+    }
+
+    /**
+     * splits a string into words, assumes no spaces
+     * returns lower case array of words, separated by upper -> lower case switch
+     * but not lower -> upper
+     * @param string $input
+     * @return array
+     */
+    protected function getWords(string $input): array {
+
+        $lastCase = null;
+        $result = [];
+        $currentString = '';
+//echo "\nINPUT = " . $input . "\n";
+        for ($x = 0; $x < strlen($input); $x++) {
+//  echo "LETTER = " . $input[$x] . "\n";
+            $isUpperCase = ctype_upper($input[$x]);
+            // If thisi s the first iteration
+            if (is_null($lastCase)) {
+//echo "BEGINNOING\n";
+                $currentString .= strtolower($input[$x]);
+            } else {
+                // If we have gone to upper then new word
+                if ($isUpperCase) {
+//echo "adding " . strToLower($currentString) ." AND RESETTING\n";
+                    $result[] = strToLower($currentString);
+                    $currentString =  strToLower($input[$x]);
+                } else {
+//echo "CONCATTING\n";
+                    $currentString .= strToLower($input[$x]);
+                }
+            }
+//echo "\nCURRENT STRING " . $currentString . "\n";
+            // Retain the currentCase. More readable than putting in the if statement above
+            // but uses a couple of processor cycles more. Sorry.
+            $lastCase = ($isUpperCase) ? 'upper' : 'lower';
+        }
+        // Add the last word to the array
+        if (!empty($currentString))
+        {
+//echo "END OF " . $currentString ." AND ENDING\n";
+            $result[] = $currentString;
+        }
+        return $result;
     }
 
     /**
@@ -23,18 +68,20 @@ class UsernameValid implements Rule
      * @param  mixed  $value
      * @return bool
      */
-    public function passes($attribute, $value)
-    {
-        if (false === stripos($value, 'cat')
-            && false === stripos($value, 'dog')
-            && false === stripos($value, 'horse'))
-        {
-            return true;
+    public function passes($attribute, $value) {
+        // By default, a blank username passes this specific test
+        $passes = true;
+        $words = $this->getWords($value);
+        // If any of our badwords exists here, then report a fail
+        foreach ($this->badwords as $badword) {
+            if (in_array($badword, $words)) {
+                $passes = false;
+                // no point carrying on.
+                break;
+            }
         }
-        else
-        {
-            return false;
-        }
+
+        return $passes;
     }
 
     /**
@@ -42,8 +89,7 @@ class UsernameValid implements Rule
      *
      * @return string
      */
-    public function message()
-    {
+    public function message() {
         return 'Your username contains invalid characters';
     }
 }
