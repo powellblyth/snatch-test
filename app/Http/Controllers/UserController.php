@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
  
 use Illuminate\Http\Request;
 use App\User;
+use App\Rules\UsernameValid;
  
 class UserController extends Controller
 {
@@ -14,7 +15,7 @@ class UserController extends Controller
     public function register(Request $request)
     {
         $this->validate($request, [
-            'username' => 'required|UsernameValid|email|unique:users',
+            'username' => 'bail|required|UsernameValid|string|max:255',
             'email' => 'required|email|unique:users',
             'phone' => 'required|phone|unique:users',
             'password' => 'required'
