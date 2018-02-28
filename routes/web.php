@@ -14,5 +14,6 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
-$router->post('/register', 'UserController@register');
+$router->post('/api/v1/register', 'UserController@register');
+$router->patch('/api/v1/user/{id}', 'UserController@patch');
 //$router->get('/user/{id}', ['middleware' => 'auth', 'uses' =>  'UserController@get_user']);

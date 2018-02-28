@@ -1,0 +1,12 @@
+APP_ENV=local
+APP_DEBUG=true
+
+DB_HOST=mariadb
+DB_DATABASE=snatch
+DB_USERNAME=root
+DB_PASSWORD=root
+
+
+CACHE_DRIVER=array
+SESSION_DRIVER=array
+QUEUE_DRIVER=array
