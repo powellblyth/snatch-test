@@ -7,10 +7,15 @@ methods to instantiate the environment (assuming docker exists), some .env examp
 git clone  --recurse-submodules git@github.com:powellblyth/snatch-test.git
 
 #cd snatch-test
+
 #cp laradockdotenv laradock/.env
+
 #cp dotenv.example .env
+
 Edit the .env to match your expected database (this code will not create your database)
+
 #docker exec -it laradock_php-fpm_1 bash
+
 #php artisan migrate
 
 ## dev-up
