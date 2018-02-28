@@ -14,16 +14,24 @@ git clone  --recurse-submodules git@github.com:powellblyth/snatch-test.git
 
 Edit the .env to match your expected database (this code will not create your database)
 
-#docker exec -it laradock_php-fpm_1 bash
+#composer install
 
-#php artisan migrate
 
 ## dev-up
 the dev-up _should_ build the environment up, assuming you have docker
 
-## 
+#./dev-up
+
+#docker exec -it laradock_php-fpm_1 bash
+
+#php artisan migrate
+
+#exit
 
 ## runtests.sh 
+
+#./runtests.sh 
+
 This runs the unit test (s) in the project. There's only one, which is for demonstration purposes
 I would expect more in a production project
 
