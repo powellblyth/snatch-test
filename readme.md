@@ -35,3 +35,13 @@ the dev-up _should_ build the environment up, assuming you have docker
 This runs the unit test (s) in the project. There's only one, which is for demonstration purposes
 I would expect more in a production project
 
+## My testing
+I used the postman collection attached, snatch_postman_collection.json
+
+
+## ERRATA
+I'm not sure the phone number is unique. Pretty easy to extend the code to do this
+
+Only one unit test - shows willing but not coverage
+
+no User tests - No framework ,apologies

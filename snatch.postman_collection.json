@@ -1,0 +1,83 @@
+{
+	"info": {
+		"name": "snatch",
+		"_postman_id": "aeaabb99-2d1e-3ce0-1d32-36fd38978b48",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "fredCat",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "blah@blar3.com",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "telephone",
+							"value": "23432423432",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "snatchit",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost/api/v1/user/register",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"register"
+					]
+				},
+				"description": "how to register"
+			},
+			"response": []
+		},
+		{
+			"name": "patch User",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "/api/v1/user",
+					"path": [
+						"api",
+						"v1",
+						"user"
+					]
+				},
+				"description": "how to register"
+			},
+			"response": []
+		}
+	]
+}
