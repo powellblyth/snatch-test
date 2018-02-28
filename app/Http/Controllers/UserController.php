@@ -15,17 +15,21 @@ class UserController extends Controller
     public function register(Request $request)
     {
         $this->validate($request, [
-            'username' => 'bail|required|UsernameValid|string|max:255',
+            'username' => 'bail|required|unique:users|UsernameValid|string|max:255',
             'email' => 'required|email|unique:users',
-            'phone' => 'required|phone|unique:users',
+            'telephone' => 'required|string|unique:users',
             'password' => 'required'
         ]);
  
         $hasher = app()->make('hash');
         $email = $request->input('email');
+        $telephone = $request->input('telephone');
+        $username = $request->input('username');
         $password = $hasher->make($request->input('password'));
         $user = User::create([
+            'username' => $username,
             'email' => $email,
+            'telephone' => $telephone,
             'password' => $password,
         ]);
  

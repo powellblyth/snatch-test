@@ -28,26 +28,20 @@ class UsernameValid implements Rule {
         $lastCase = null;
         $result = [];
         $currentString = '';
-//echo "\nINPUT = " . $input . "\n";
         for ($x = 0; $x < strlen($input); $x++) {
-//  echo "LETTER = " . $input[$x] . "\n";
             $isUpperCase = ctype_upper($input[$x]);
             // If thisi s the first iteration
             if (is_null($lastCase)) {
-//echo "BEGINNOING\n";
                 $currentString .= strtolower($input[$x]);
             } else {
                 // If we have gone to upper then new word
                 if ($isUpperCase) {
-//echo "adding " . strToLower($currentString) ." AND RESETTING\n";
                     $result[] = strToLower($currentString);
                     $currentString =  strToLower($input[$x]);
                 } else {
-//echo "CONCATTING\n";
                     $currentString .= strToLower($input[$x]);
                 }
             }
-//echo "\nCURRENT STRING " . $currentString . "\n";
             // Retain the currentCase. More readable than putting in the if statement above
             // but uses a couple of processor cycles more. Sorry.
             $lastCase = ($isUpperCase) ? 'upper' : 'lower';
@@ -55,7 +49,6 @@ class UsernameValid implements Rule {
         // Add the last word to the array
         if (!empty($currentString))
         {
-//echo "END OF " . $currentString ." AND ENDING\n";
             $result[] = $currentString;
         }
         return $result;
@@ -90,6 +83,7 @@ class UsernameValid implements Rule {
      * @return string
      */
     public function message() {
-        return 'Your username contains invalid characters';
+        return 'Your :attribute contains invalid words, please do not include ' . implode(', ', $this->badwords);
     }
+
 }
